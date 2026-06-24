@@ -1,0 +1,389 @@
+.window {
+  border: 2px solid var(--window-border);
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  position: absolute;
+  backdrop-filter: blur(12px);
+  background-color: var(--window-bg);
+  padding: 16px;
+  width: fit-content;
+}
+
+.windowheader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  cursor: grab;
+  justify-content: space-between;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  user-select: none;
+}
+
+.headertext {
+  margin: 0px;
+  color: rgb(100, 70, 160);
+  font-weight: 500;
+  font-family: 'Plus Jakarta Sans', monospace;
+  font-size: 13px;
+}
+
+.closebutton {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #ff5f57;
+  border: 1px solid rgba(0,0,0,0.2);
+  cursor: pointer;
+  margin-left: 6px;
+  flex-shrink: 0;
+  user-select: none;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.closebutton:hover {
+  background-color: #e0443c;
+  transform: scale(1.15);
+}
+
+.window-content {
+  padding: 12px 8px 8px 8px;
+  min-width: 340px;
+  min-height: 200px;
+}
+
+#desktopApps {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 4px;
+}
+
+.app-icon {
+  text-align: center;
+  padding: 10px;
+  width: 88px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  user-select: none;
+}
+
+.app-icon:hover {
+  background: rgba(177, 156, 217, 0.18);
+  transform: translateY(-2px);
+}
+
+.app-icon.selected {
+  background: rgba(177, 156, 217, 0.3);
+  box-shadow: 0 0 0 2px rgba(177, 156, 217, 0.6);
+}
+
+.app-icon-img {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  filter: drop-shadow(0 4px 12px rgba(120, 80, 200, 0.35));
+  display: block;
+  margin: 0 auto;
+}
+
+.app-icon-label {
+  margin: 6px 0 0 0;
+  color: #fff;
+  font-size: 11px;
+  font-family: 'Plus Jakarta Sans', monospace;
+  font-weight: 500;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+.calc-btn {
+  padding: 18px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(200, 185, 240, 0.6);
+  color: rgb(60, 20, 100);
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Plus Jakarta Sans', monospace;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.calc-btn:hover {
+  background: rgba(177, 156, 217, 0.8);
+  transform: scale(1.05);
+}
+
+.calc-btn:active {
+  transform: scale(0.96);
+}
+
+.calc-op {
+  background: rgba(177, 156, 217, 0.5);
+  color: rgb(80, 40, 140);
+}
+
+.calc-eq {
+  background: rgb(150, 100, 220);
+  color: white;
+}
+
+.calc-eq:hover {
+  background: rgb(120, 70, 200);
+}
+
+.sw-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(177, 156, 217, 0.5);
+  color: rgb(60, 20, 100);
+  font-family: 'Plus Jakarta Sans', monospace;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.sw-btn:hover {
+  background: rgba(177, 156, 217, 0.8);
+  transform: scale(1.04);
+}
+
+.app-icon-emoji-img {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: rgba(177, 156, 217, 0.2);
+  border: 1px solid rgba(177, 156, 217, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin: 0 auto;
+  filter: drop-shadow(0 4px 12px rgba(120, 80, 200, 0.35));
+}
+
+#dock {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 10px 18px;
+  background: rgba(177, 156, 217, 0.18);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(177, 156, 217, 0.25);
+  border-radius: 22px;
+  z-index: 9998;
+}
+
+.dock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.dock-item:hover {
+  transform: translateY(-12px) scale(1.25);
+}
+
+.dock-item:hover .dock-label {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.dock-img {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  filter: drop-shadow(0 4px 10px rgba(120, 80, 200, 0.4));
+  display: block;
+}
+
+.dock-emoji {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(177, 156, 217, 0.25);
+  border: 1px solid rgba(177, 156, 217, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  filter: drop-shadow(0 4px 10px rgba(120, 80, 200, 0.4));
+}
+
+.dock-label {
+  font-size: 10px;
+  color: #fff;
+  font-family: 'Plus Jakarta Sans', monospace;
+  font-weight: 500;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  white-space: nowrap;
+}
+
+.dock-separator {
+  width: 1px;
+  height: 40px;
+  background: rgba(177, 156, 217, 0.3);
+  margin: 0 4px;
+  align-self: center;
+}
+
+.about-icon {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 9997;
+  transition: transform 0.15s ease;
+}
+
+.about-icon:hover {
+  transform: translateY(-3px);
+}
+
+.about-icon-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgb(120, 80, 220), rgb(80, 40, 160));
+  border: 1px solid rgba(177, 156, 217, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 4px 14px rgba(120, 80, 200, 0.5));
+  gap: 2px;
+}
+
+.about-icon-box span:first-child {
+  font-size: 20px;
+}
+
+.about-icon-box span:last-child {
+  font-size: 8px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.05em;
+  font-family: 'Plus Jakarta Sans', monospace;
+}
+
+.about-icon-label {
+  font-size: 11px;
+  color: #fff;
+  font-family: 'Plus Jakarta Sans', monospace;
+  font-weight: 500;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+body {
+  --accent: rgb(177, 156, 217);
+  --accent-rgba: rgba(177, 156, 217, 0.25);
+  --accent-light: rgba(177, 156, 217, 0.12);
+  --accent-border: rgba(177, 156, 217, 0.4);
+  --accent-glow: rgba(120, 80, 200, 0.4);
+  --window-bg: rgba(230, 220, 255, 0.88);
+  --window-border: rgb(177, 156, 217);
+  --text-dark: rgb(60, 20, 120);
+  --text-mid: rgb(100, 60, 160);
+  --text-muted: rgb(150, 120, 200);
+  --btn-bg: linear-gradient(135deg, rgb(150, 100, 220), rgb(100, 60, 180));
+  --calc-btn: rgba(200, 185, 240, 0.6);
+  --calc-op: rgba(177, 156, 217, 0.5);
+  --calc-eq: rgb(150, 100, 220);
+  --sw-btn: rgba(177, 156, 217, 0.5);
+  --dock-bg: rgba(177, 156, 217, 0.18);
+  --dock-border: rgba(177, 156, 217, 0.25);
+  --dock-emoji-bg: rgba(177, 156, 217, 0.25);
+  --dock-emoji-border: rgba(177, 156, 217, 0.4);
+  --display-bg: #1a0a2e;
+  --display-color: #c4b5fd;
+}
+
+body.blue-theme {
+  --accent: rgb(100, 160, 255);
+  --accent-rgba: rgba(60, 120, 255, 0.25);
+  --accent-light: rgba(60, 120, 255, 0.12);
+  --accent-border: rgba(60, 120, 255, 0.4);
+  --accent-glow: rgba(30, 80, 200, 0.4);
+  --window-bg: rgba(200, 220, 255, 0.93);
+  --window-border: rgb(80, 140, 255);
+  --text-dark: rgb(10, 30, 100);
+  --text-mid: rgb(30, 70, 160);
+  --text-muted: rgb(80, 120, 210);
+  --btn-bg: linear-gradient(135deg, rgb(60, 120, 255), rgb(30, 70, 200));
+  --calc-btn: rgba(180, 200, 255, 0.6);
+  --calc-op: rgba(100, 160, 255, 0.5);
+  --calc-eq: rgb(60, 120, 255);
+  --sw-btn: rgba(100, 160, 255, 0.5);
+  --dock-bg: rgba(60, 120, 255, 0.18);
+  --dock-border: rgba(60, 120, 255, 0.25);
+  --dock-emoji-bg: rgba(60, 120, 255, 0.2);
+  --dock-emoji-border: rgba(60, 120, 255, 0.4);
+  --display-bg: #061030;
+  --display-color: #93c5fd;
+}
+
+.window {
+  border-color: var(--window-border) !important;
+  background-color: var(--window-bg) !important;
+}
+
+#top {
+  background-color: var(--accent-rgba) !important;
+}
+
+#dock {
+  background: var(--dock-bg) !important;
+  border-color: var(--dock-border) !important;
+}
+
+.dock-emoji {
+  background: var(--dock-emoji-bg) !important;
+  border-color: var(--dock-emoji-border) !important;
+}
+
+.calc-btn {
+  background: var(--calc-btn) !important;
+  color: var(--text-dark) !important;
+}
+
+.calc-op {
+  background: var(--calc-op) !important;
+  color: var(--text-mid) !important;
+}
+
+.calc-eq {
+  background: var(--calc-eq) !important;
+}
+
+.sw-btn {
+  background: var(--sw-btn) !important;
+  color: var(--text-dark) !important;
+}
+
+.app-icon-emoji-img {
+  background: var(--dock-emoji-bg) !important;
+  border-color: var(--dock-emoji-border) !important;
+}
+
+.app-icon.selected {
+  background: var(--accent-light) !important;
+  box-shadow: 0 0 0 2px var(--accent-border) !important;
+}
