@@ -49,4 +49,8 @@ lucidOS comes with two built-in themes:
 - **🌙 Purple** — the default dreamy purple aesthetic
 - **🔵 Blue** — a cool blue dark mode alternative
 Switch between them any time using the **Settings** app in the dock.
+
+## 🚀 Live Demo
+Well, now you know what LucidOS is all about-**Try LucidOS here:**
+https://koushikrajd2011-rgb.github.io/lucidOS/
  
