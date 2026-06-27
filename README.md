@@ -38,7 +38,8 @@ It was built as part of a creative frontend engineering project, with the goal o
 | 📖 Word of the Day | A beautiful word every day with definition |
 | 🎲 Surprise Me | Opens a random app |
 | ⚙️ Settings | Switch between Purple and Blue themes |
-| ℹ️ About | Info about lucidOS |
+| ℹ️ About | Info about lucidOS | 
+And more features u can find by checking out the project.
  
 ---
  
@@ -48,6 +49,7 @@ lucidOS comes with two built-in themes:
  
 - **🌙 Purple** — the default dreamy purple aesthetic
 - **🔵 Blue** — a cool blue dark mode alternative
+- **Find it out yourself!
 Switch between them any time using the **Settings** app in the dock.
 
 ## 🚀 Live Demo
