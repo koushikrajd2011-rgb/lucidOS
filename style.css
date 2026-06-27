@@ -1,8 +1,9 @@
+/* ── WINDOW: square shape ── */
 .window {
-  border: 2px solid var(--window-border);
+  border: 4mm ridge var(--window-border);
   display: flex;
   flex-direction: column;
-  border-radius: 16px;
+  border-radius: 0px;
   position: absolute;
   backdrop-filter: blur(12px);
   background-color: var(--window-bg);
@@ -23,7 +24,7 @@
 
 .headertext {
   margin: 0px;
-  color: rgb(100, 70, 160);
+  color: var(--text-mid);
   font-weight: 500;
   font-family: 'Plus Jakarta Sans', monospace;
   font-size: 13px;
@@ -64,7 +65,7 @@
   text-align: center;
   padding: 10px;
   width: 88px;
-  border-radius: 16px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.15s ease;
   user-select: none;
@@ -83,7 +84,7 @@
 .app-icon-img {
   width: 64px;
   height: 64px;
-  border-radius: 16px;
+  border-radius: 0px;
   filter: drop-shadow(0 4px 12px rgba(120, 80, 200, 0.35));
   display: block;
   margin: 0 auto;
@@ -100,7 +101,7 @@
 
 .calc-btn {
   padding: 18px;
-  border-radius: 10px;
+  border-radius: 0px;
   border: none;
   background: rgba(200, 185, 240, 0.6);
   color: rgb(60, 20, 100);
@@ -136,7 +137,7 @@
 
 .sw-btn {
   padding: 10px 16px;
-  border-radius: 10px;
+  border-radius: 0px;
   border: none;
   background: rgba(177, 156, 217, 0.5);
   color: rgb(60, 20, 100);
@@ -155,7 +156,7 @@
 .app-icon-emoji-img {
   width: 64px;
   height: 64px;
-  border-radius: 16px;
+  border-radius: 0px;
   background: rgba(177, 156, 217, 0.2);
   border: 1px solid rgba(177, 156, 217, 0.4);
   display: flex;
@@ -178,7 +179,7 @@
   background: rgba(177, 156, 217, 0.18);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(177, 156, 217, 0.25);
-  border-radius: 22px;
+  border-radius: 0px;
   z-index: 9998;
 }
 
@@ -203,7 +204,7 @@
 .dock-img {
   width: 52px;
   height: 52px;
-  border-radius: 14px;
+  border-radius: 0px;
   filter: drop-shadow(0 4px 10px rgba(120, 80, 200, 0.4));
   display: block;
 }
@@ -211,7 +212,7 @@
 .dock-emoji {
   width: 52px;
   height: 52px;
-  border-radius: 14px;
+  border-radius: 0px;
   background: rgba(177, 156, 217, 0.25);
   border: 1px solid rgba(177, 156, 217, 0.4);
   display: flex;
@@ -261,7 +262,7 @@
 .about-icon-box {
   width: 64px;
   height: 64px;
-  border-radius: 16px;
+  border-radius: 0px;
   background: linear-gradient(135deg, rgb(120, 80, 220), rgb(80, 40, 160));
   border: 1px solid rgba(177, 156, 217, 0.5);
   display: flex;
@@ -272,10 +273,7 @@
   gap: 2px;
 }
 
-.about-icon-box span:first-child {
-  font-size: 20px;
-}
-
+.about-icon-box span:first-child { font-size: 20px; }
 .about-icon-box span:last-child {
   font-size: 8px;
   font-weight: 700;
@@ -292,6 +290,141 @@
   text-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
 
+/* ── Activity Widget ── */
+#activityWidget {
+  position: fixed;
+  top: 70px;
+  right: 16px;
+  width: 172px;
+  background: var(--window-bg);
+  border: 2px solid var(--accent-border);
+  border-radius: 0px;
+  padding: 12px 14px;
+  z-index: 9996;
+  backdrop-filter: blur(14px);
+  font-family: 'Plus Jakarta Sans', monospace;
+}
+
+.widget-title {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.widget-count {
+  font-size: 11px;
+  color: var(--text-mid);
+  margin-bottom: 4px;
+}
+
+#widgetCount {
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.widget-last {
+  font-size: 10px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--accent-border);
+  padding-top: 8px;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Lumi Pet ── */
+#lumiPet {
+  position: fixed;
+  bottom: 100px;
+  left: 20px;
+  z-index: 99997;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+#lumiBubble {
+  display: none;
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  width: 220px;
+  background: var(--window-bg);
+  border: 2px solid var(--accent-border);
+  border-radius: 0px;
+  padding: 12px 14px;
+  font-family: 'Plus Jakarta Sans', monospace;
+  font-size: 12px;
+  color: var(--text-dark);
+  line-height: 1.6;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+
+#lumiBubbleText {
+  margin-bottom: 10px;
+  color: var(--text-dark);
+}
+
+#lumiInput {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 0px;
+  border: 1px solid var(--accent-border);
+  background: var(--accent-light);
+  color: var(--text-dark);
+  font-family: 'Plus Jakarta Sans', monospace;
+  font-size: 11px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 6px;
+}
+
+#lumiBubble button {
+  padding: 6px 14px;
+  border-radius: 0px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', monospace;
+  width: 100%;
+}
+
+#lumiBody {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--btn-bg);
+  border: 2px solid var(--accent-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 0 18px var(--accent-glow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#lumiBody:hover {
+  transform: scale(1.1);
+}
+
+.lumi-label {
+  font-size: 10px;
+  color: #fff;
+  font-family: 'Plus Jakarta Sans', monospace;
+  font-weight: 600;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+
+/* ── CSS Variables ── */
 body {
   --accent: rgb(177, 156, 217);
   --accent-rgba: rgba(177, 156, 217, 0.25);
@@ -299,7 +432,7 @@ body {
   --accent-border: rgba(177, 156, 217, 0.4);
   --accent-glow: rgba(120, 80, 200, 0.4);
   --window-bg: rgba(230, 220, 255, 0.88);
-  --window-border: rgb(177, 156, 217);
+  --window-border: rgb(210, 180, 255);
   --text-dark: rgb(60, 20, 120);
   --text-mid: rgb(100, 60, 160);
   --text-muted: rgb(150, 120, 200);
@@ -314,6 +447,7 @@ body {
   --dock-emoji-border: rgba(177, 156, 217, 0.4);
   --display-bg: #1a0a2e;
   --display-color: #c4b5fd;
+  --trail-color: 168, 139, 250;
 }
 
 body.blue-theme {
@@ -323,7 +457,7 @@ body.blue-theme {
   --accent-border: rgba(60, 120, 255, 0.4);
   --accent-glow: rgba(30, 80, 200, 0.4);
   --window-bg: rgba(200, 220, 255, 0.93);
-  --window-border: rgb(80, 140, 255);
+  --window-border: rgb(180, 210, 255);
   --text-dark: rgb(10, 30, 100);
   --text-mid: rgb(30, 70, 160);
   --text-muted: rgb(80, 120, 210);
@@ -338,8 +472,35 @@ body.blue-theme {
   --dock-emoji-border: rgba(60, 120, 255, 0.4);
   --display-bg: #061030;
   --display-color: #93c5fd;
+  --trail-color: 100, 160, 255;
 }
 
+body.black-theme {
+  --accent: rgb(200, 200, 200);
+  --accent-rgba: rgba(255, 255, 255, 0.08);
+  --accent-light: rgba(255, 255, 255, 0.06);
+  --accent-border: rgba(255, 255, 255, 0.15);
+  --accent-glow: rgba(255, 255, 255, 0.12);
+  --window-bg: rgba(10, 10, 10, 0.92);
+  --window-border: rgba(255, 255, 255, 0.2);
+  --text-dark: rgb(240, 240, 240);
+  --text-mid: rgb(180, 180, 180);
+  --text-muted: rgb(120, 120, 120);
+  --btn-bg: linear-gradient(135deg, rgb(40, 40, 40), rgb(10, 10, 10));
+  --calc-btn: rgba(255, 255, 255, 0.08);
+  --calc-op: rgba(255, 255, 255, 0.12);
+  --calc-eq: rgb(60, 60, 60);
+  --sw-btn: rgba(255, 255, 255, 0.08);
+  --dock-bg: rgba(0, 0, 0, 0.7);
+  --dock-border: rgba(255, 255, 255, 0.12);
+  --dock-emoji-bg: rgba(255, 255, 255, 0.06);
+  --dock-emoji-border: rgba(255, 255, 255, 0.12);
+  --display-bg: #000000;
+  --display-color: #ffffff;
+  --trail-color: 255, 255, 255;
+}
+
+/* ── Theme overrides ── */
 .window {
   border-color: var(--window-border) !important;
   background-color: var(--window-bg) !important;
@@ -371,6 +532,7 @@ body.blue-theme {
 
 .calc-eq {
   background: var(--calc-eq) !important;
+  color: var(--display-color) !important;
 }
 
 .sw-btn {
@@ -386,4 +548,14 @@ body.blue-theme {
 .app-icon.selected {
   background: var(--accent-light) !important;
   box-shadow: 0 0 0 2px var(--accent-border) !important;
+}
+
+/* black theme: hide video, show black bg */
+body.black-theme #bgVideo {
+  display: none;
+}
+
+body.black-theme #trailCanvas {
+  display: block !important;
+  background: #000;
 }

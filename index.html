@@ -5,65 +5,74 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 
-<body id="osBody" style="font-family: 'Plus Jakarta Sans', monospace; background-image: url('./lucid.png'); background-size: cover; background-position: center; height: 100vh; margin: 0; overflow: hidden;">
+<body id="osBody" style="font-family: 'Plus Jakarta Sans', monospace; height: 100vh; margin: 0; overflow: hidden;">
 
-  
+  <!-- Video Background (hidden on black theme) -->
+  <video id="bgVideo" autoplay muted loop playsinline style="
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; z-index: -1;">
+    <source id="bgVideoSrc" src="./lucid.mp4" type="video/mp4" />
+  </video>
+
+  <!-- Black theme background canvas with dot reveal trail -->
+  <canvas id="trailCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;display:none;"></canvas>
+
   <div id="top" style="
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
+    position: absolute; top: 0; left: 0; width: 100%;
+    display: flex; align-items: center;
     backdrop-filter: blur(10px);
     background-color: rgba(177, 156, 217, 0.25);
-    color: #fff;
-    justify-content: space-between;
-    z-index: 9999;">
+    color: #fff; justify-content: space-between; z-index: 9999;">
     <p id="welcomeopen" style="margin: 0; padding: 12px 16px; cursor: pointer; font-weight: 600;">LucidOS</p>
     <p id="timeElement" style="margin: 0; padding: 12px 16px;">Time</p>
   </div>
 
-  
   <div id="desktopApps" style="padding-top: 64px; padding-left: 16px; display: flex; flex-wrap: wrap; align-content: flex-start;">
 
-    <div class="app-icon" onclick="handleIconTap(this); openWindow(calculatorScreen);">
+    <div class="app-icon" onclick="handleIconTap(this); openWindow(calculatorScreen); trackApp('Calculator');">
       <img src="./calculator.png" class="app-icon-img" id="icon-calculator" />
       <p class="app-icon-label">Calculator</p>
     </div>
 
-    <div class="app-icon" onclick="handleIconTap(this); openWindow(weatherScreen);">
+    <div class="app-icon" onclick="handleIconTap(this); openWindow(weatherScreen); trackApp('Weather');">
       <img src="./weather.png" class="app-icon-img" id="icon-weather" />
       <p class="app-icon-label">Weather</p>
     </div>
 
-    <div class="app-icon" onclick="handleIconTap(this); openWindow(stopwatchScreen);">
+    <div class="app-icon" onclick="handleIconTap(this); openWindow(stopwatchScreen); trackApp('Stopwatch');">
       <img src="./stopwatch.png" class="app-icon-img" id="icon-stopwatch" />
       <p class="app-icon-label">Stopwatch</p>
     </div>
 
-    <div class="app-icon" onclick="handleIconTap(this); openWindow(emojiScreen);">
+    <div class="app-icon" onclick="handleIconTap(this); openWindow(emojiScreen); trackApp('Emoji');">
       <img src="./Emoji.png" class="app-icon-img" id="icon-emoji" />
       <p class="app-icon-label">Emoji Picker</p>
     </div>
 
-    <div class="app-icon" onclick="handleIconTap(this); openWindow(guessScreen);">
+    <div class="app-icon" onclick="handleIconTap(this); openWindow(guessScreen); trackApp('Guess');">
       <img src="./NumberGam.png" class="app-icon-img" id="icon-guess" />
       <p class="app-icon-label">Guess!</p>
     </div>
 
-    <div class="app-icon" onclick="handleIconTap(this); openWindow(pixelScreen);">
+    <div class="app-icon" onclick="handleIconTap(this); openWindow(pixelScreen); trackApp('Pixel Art');">
       <img src="./PixelArt.png" class="app-icon-img" id="icon-pixel" />
       <p class="app-icon-label">Pixel Art</p>
     </div>
 
-    <div class="app-icon" onclick="handleIconTap(this); openWindow(lucidNotesScreen);">
-      <div class="app-icon-emoji-img">📝</div>
+    <div class="app-icon" onclick="handleIconTap(this); openWindow(lucidNotesScreen); trackApp('LucidNotes');">
+      <img src="./Notes.png" class="app-icon-img" id="icon-notes" />
       <p class="app-icon-label">LucidNotes</p>
+    </div>
+
+    <div class="app-icon" onclick="handleIconTap(this); openWindow(lucidTunesScreen); trackApp('LucidTunes');">
+      <img src="./Tunes.png" class="app-icon-img" id="icon-tunes" />
+      <p class="app-icon-label">LucidTunes</p>
     </div>
 
   </div>
 
-  
+  <!-- Welcome -->
   <div class="window" id="welcome" style="top: calc(50% - 90px); left: calc(50% - 180px);">
     <div class="windowheader" id="welcomeheader">
       <div class="closebutton" id="welcomeclose"></div>
@@ -75,44 +84,30 @@
     </div>
   </div>
 
-  
+  <!-- Calculator -->
   <div class="window" id="calculator" style="top: 80px; left: 80px; display: none;">
     <div class="windowheader" id="calculatorheader">
       <div class="closebutton" id="calculatorclose"></div>
       <p class="headertext">calculator.app</p>
     </div>
     <div class="window-content" style="padding: 0;">
-      <div id="calcDisplay" style="
-        background: var(--display-bg, #1a0a2e);
-        color: var(--display-color, #c4b5fd);
-        font-size: 28px;
-        text-align: right;
-        padding: 16px 20px;
-        border-radius: 10px;
-        margin-bottom: 12px;
-        min-height: 72px;
-        word-break: break-all;
-        font-family: 'Plus Jakarta Sans', monospace;">0</div>
+      <div id="calcDisplay" style="background: var(--display-bg); color: var(--display-color); font-size: 28px; text-align: right; padding: 16px 20px; border-radius: 4px; margin-bottom: 12px; min-height: 72px; word-break: break-all; font-family: 'Plus Jakarta Sans', monospace;">0</div>
       <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
         <button class="calc-btn calc-op" onclick="calcInput('C')" style="grid-column: span 2;">C</button>
         <button class="calc-btn calc-op" onclick="calcInput('%')">%</button>
         <button class="calc-btn calc-op" onclick="calcInput('/')">÷</button>
-
         <button class="calc-btn" onclick="calcInput('7')">7</button>
         <button class="calc-btn" onclick="calcInput('8')">8</button>
         <button class="calc-btn" onclick="calcInput('9')">9</button>
         <button class="calc-btn calc-op" onclick="calcInput('*')">×</button>
-
         <button class="calc-btn" onclick="calcInput('4')">4</button>
         <button class="calc-btn" onclick="calcInput('5')">5</button>
         <button class="calc-btn" onclick="calcInput('6')">6</button>
         <button class="calc-btn calc-op" onclick="calcInput('-')">−</button>
-
         <button class="calc-btn" onclick="calcInput('1')">1</button>
         <button class="calc-btn" onclick="calcInput('2')">2</button>
         <button class="calc-btn" onclick="calcInput('3')">3</button>
         <button class="calc-btn calc-op" onclick="calcInput('+')">+</button>
-
         <button class="calc-btn" onclick="calcInput('0')" style="grid-column: span 2;">0</button>
         <button class="calc-btn" onclick="calcInput('.')">.</button>
         <button class="calc-btn calc-eq" onclick="calcInput('=')">=</button>
@@ -120,7 +115,7 @@
     </div>
   </div>
 
-  
+  <!-- Weather -->
   <div class="window" id="weather" style="top: 80px; left: 340px; display: none;">
     <div class="windowheader" id="weatherheader">
       <div class="closebutton" id="weatherclose"></div>
@@ -128,45 +123,21 @@
     </div>
     <div class="window-content">
       <div style="display: flex; gap: 8px; margin-bottom: 16px;">
-        <input id="cityInput" type="text" placeholder="Enter city..." style="
-          flex: 1; padding: 10px 14px;
-          border-radius: 10px;
-          border: 1px solid var(--accent-border);
-          background: var(--accent-light);
-          color: var(--text-dark);
-          font-family: 'Plus Jakarta Sans', monospace;
-          font-size: 14px;
-          outline: none;" />
-        <button onclick="fetchWeather()" style="
-          padding: 10px 16px;
-          border-radius: 10px;
-          border: none;
-          background: var(--accent);
-          color: white;
-          font-family: 'Plus Jakarta Sans', monospace;
-          font-weight: 600;
-          cursor: pointer;">Go</button>
+        <input id="cityInput" type="text" placeholder="Enter city..." style="flex: 1; padding: 10px 14px; border-radius: 4px; border: 1px solid var(--accent-border); background: var(--accent-light); color: var(--text-dark); font-family: 'Plus Jakarta Sans', monospace; font-size: 14px; outline: none;" />
+        <button onclick="fetchWeather()" style="padding: 10px 16px; border-radius: 4px; border: none; background: var(--accent); color: white; font-family: 'Plus Jakarta Sans', monospace; font-weight: 600; cursor: pointer;">Go</button>
       </div>
-      <div id="weatherResult" style="text-align: center; color: var(--text-dark); min-height: 160px; font-size: 14px;">
-        Type a city and press Go ☁️
-      </div>
+      <div id="weatherResult" style="text-align: center; color: var(--text-dark); min-height: 160px; font-size: 14px;">Type a city and press Go ☁️</div>
     </div>
   </div>
 
-  
+  <!-- Stopwatch -->
   <div class="window" id="stopwatch" style="top: 80px; left: 600px; display: none;">
     <div class="windowheader" id="stopwatchheader">
       <div class="closebutton" id="stopwatchclose"></div>
       <p class="headertext">stopwatch.app</p>
     </div>
     <div class="window-content" style="text-align: center;">
-      <div id="swDisplay" style="
-        font-size: 56px;
-        font-weight: 300;
-        color: var(--text-dark);
-        letter-spacing: 0.05em;
-        margin-bottom: 24px;
-        font-family: 'Plus Jakarta Sans', monospace;">00:00.00</div>
+      <div id="swDisplay" style="font-size: 56px; font-weight: 300; color: var(--text-dark); letter-spacing: 0.05em; margin-bottom: 24px; font-family: 'Plus Jakarta Sans', monospace;">00:00.00</div>
       <div style="display: flex; gap: 10px; justify-content: center;">
         <button class="sw-btn" onclick="swStart()">▶ Start</button>
         <button class="sw-btn" onclick="swStop()">⏸ Stop</button>
@@ -175,7 +146,7 @@
     </div>
   </div>
 
-  
+  <!-- Emoji -->
   <div class="window" id="emoji" style="top: 100px; left: 200px; display: none;">
     <div class="windowheader" id="emojiheader">
       <div class="closebutton" id="emojiclose"></div>
@@ -183,22 +154,12 @@
     </div>
     <div class="window-content">
       <p style="font-size: 12px; color: var(--text-muted); margin: 0 0 10px 0;">Click an emoji to copy it!</p>
-      <div id="emojiGrid" style="
-        display: grid;
-        grid-template-columns: repeat(8, 1fr);
-        gap: 6px;
-        max-height: 320px;
-        overflow-y: auto;"></div>
-      <div id="emojiCopied" style="
-        margin-top: 10px;
-        text-align: center;
-        font-size: 12px;
-        color: var(--accent);
-        min-height: 18px;"></div>
+      <div id="emojiGrid" style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; max-height: 320px; overflow-y: auto;"></div>
+      <div id="emojiCopied" style="margin-top: 10px; text-align: center; font-size: 12px; color: var(--accent); min-height: 18px;"></div>
     </div>
   </div>
 
-  
+  <!-- Guess -->
   <div class="window" id="guess" style="top: 120px; left: 420px; display: none;">
     <div class="windowheader" id="guessheader">
       <div class="closebutton" id="guessclose"></div>
@@ -206,103 +167,76 @@
     </div>
     <div class="window-content" style="text-align: center;">
       <p style="color: var(--text-dark); font-weight: 600; margin: 0 0 6px 0;">Guess a number between 1–100</p>
-      <div id="guessFeedback" style="
-        background: var(--display-bg, #1a0a2e);
-        color: var(--display-color, #c4b5fd);
-        border-radius: 10px;
-        padding: 12px;
-        font-size: 14px;
-        margin-bottom: 14px;
-        min-height: 80px;">Pick a number and guess!</div>
+      <div id="guessFeedback" style="background: var(--display-bg); color: var(--display-color); border-radius: 4px; padding: 12px; font-size: 14px; margin-bottom: 14px; min-height: 80px;">Pick a number and guess!</div>
       <div style="display: flex; gap: 8px; justify-content: center;">
-        <input id="guessInput" type="number" min="1" max="100" placeholder="1–100" style="
-          width: 90px; padding: 10px;
-          border-radius: 10px;
-          border: 1px solid var(--accent-border);
-          background: var(--accent-light);
-          color: var(--text-dark);
-          font-family: 'Plus Jakarta Sans', monospace;
-          font-size: 14px;
-          text-align: center;
-          outline: none;" />
-        <button onclick="makeGuess()" style="
-          padding: 10px 16px;
-          border-radius: 10px;
-          border: none;
-          background: var(--accent);
-          color: white;
-          font-family: 'Plus Jakarta Sans', monospace;
-          font-weight: 600;
-          cursor: pointer;">Guess</button>
+        <input id="guessInput" type="number" min="1" max="100" placeholder="1–100" style="width: 90px; padding: 10px; border-radius: 4px; border: 1px solid var(--accent-border); background: var(--accent-light); color: var(--text-dark); font-family: 'Plus Jakarta Sans', monospace; font-size: 14px; text-align: center; outline: none;" />
+        <button onclick="makeGuess()" style="padding: 10px 16px; border-radius: 4px; border: none; background: var(--accent); color: white; font-family: 'Plus Jakarta Sans', monospace; font-weight: 600; cursor: pointer;">Guess</button>
       </div>
       <p id="guessAttempts" style="color: var(--text-muted); font-size: 12px; margin-top: 10px;">Attempts: 0</p>
-      <button onclick="resetGuess()" style="
-        margin-top: 4px;
-        padding: 6px 14px;
-        border-radius: 8px;
-        border: 1px solid var(--accent-border);
-        background: transparent;
-        color: var(--text-muted);
-        font-family: 'Plus Jakarta Sans', monospace;
-        font-size: 12px;
-        cursor: pointer;">New Game</button>
+      <button onclick="resetGuess()" style="margin-top: 4px; padding: 6px 14px; border-radius: 4px; border: 1px solid var(--accent-border); background: transparent; color: var(--text-muted); font-family: 'Plus Jakarta Sans', monospace; font-size: 12px; cursor: pointer;">New Game</button>
     </div>
   </div>
 
-  
+  <!-- Pixel Art -->
   <div class="window" id="pixel" style="top: 80px; left: 160px; display: none;">
     <div class="windowheader" id="pixelheader">
       <div class="closebutton" id="pixelclose"></div>
       <p class="headertext">pixel-art.app</p>
     </div>
     <div class="window-content">
-      
       <div style="display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; align-items: center;">
         <span style="font-size: 12px; color: var(--text-mid); margin-right: 4px;">Color:</span>
         <div id="paletteColors" style="display: flex; gap: 6px; flex-wrap: wrap;"></div>
-        <input type="color" id="customColor" value="#a78bfa" style="
-          width: 32px; height: 32px;
-          border-radius: 8px; border: none;
-          cursor: pointer; background: none;" title="Custom color" />
-        <button onclick="clearPixelGrid()" style="
-          margin-left: auto;
-          padding: 4px 12px;
-          border-radius: 8px;
-          border: 1px solid var(--accent-border);
-          background: transparent;
-          color: var(--text-muted);
-          font-size: 12px;
-          cursor: pointer;
-          font-family: 'Plus Jakarta Sans', monospace;">Clear</button>
+        <input type="color" id="customColor" value="#a78bfa" style="width: 32px; height: 32px; border-radius: 4px; border: none; cursor: pointer; background: none;" title="Custom color" />
+        <button onclick="clearPixelGrid()" style="margin-left: auto; padding: 4px 12px; border-radius: 4px; border: 1px solid var(--accent-border); background: transparent; color: var(--text-muted); font-size: 12px; cursor: pointer; font-family: 'Plus Jakarta Sans', monospace;">Clear</button>
       </div>
-      
-      <div id="pixelGrid" style="
-        display: grid;
-        grid-template-columns: repeat(20, 18px);
-        gap: 1px;
-        background: rgba(177,156,217,0.15);
-        border-radius: 8px;
-        padding: 4px;
-        user-select: none;"></div>
+      <div id="pixelGrid" style="display: grid; grid-template-columns: repeat(20, 18px); gap: 1px; background: rgba(177,156,217,0.15); border-radius: 4px; padding: 4px; user-select: none;"></div>
     </div>
   </div>
 
-  
+  <!-- LucidNotes -->
   <div class="window" id="lucidnotes" style="top: 100px; left: 300px; display: none;">
     <div class="windowheader" id="lucidnotesheader">
       <div class="closebutton" id="lucidnotesclose"></div>
       <p class="headertext">LucidNotes</p>
     </div>
     <div class="window-content" style="padding: 0 4px 4px 4px;">
-      <textarea id="lucidNotesText" placeholder="Start typing your thoughts..." style="width: 380px; height: 340px; background: rgba(20,10,50,0.6); color: #e8e4ff; border: 1px solid var(--accent-border); border-radius: 12px; padding: 16px; font-family: 'Plus Jakarta Sans', monospace; font-size: 14px; line-height: 1.7; resize: none; outline: none; backdrop-filter: blur(8px);"></textarea>
+      <textarea id="lucidNotesText" placeholder="Start typing your thoughts..." style="width: 380px; height: 340px; background: var(--display-bg); color: var(--display-color); border: 1px solid var(--accent-border); border-radius: 4px; padding: 16px; font-family: 'Plus Jakarta Sans', monospace; font-size: 14px; line-height: 1.7; resize: none; outline: none;"></textarea>
       <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
         <span id="lucidNotesCount" style="font-size: 11px; color: var(--text-muted);">0 characters</span>
-        <button onclick="clearLucidNotes()" style="padding: 5px 12px; border-radius: 8px; border: 1px solid var(--accent-border); background: transparent; color: var(--text-muted); font-family: 'Plus Jakarta Sans', monospace; font-size: 12px; cursor: pointer;">Clear</button>
+        <button onclick="clearLucidNotes()" style="padding: 5px 12px; border-radius: 4px; border: 1px solid var(--accent-border); background: transparent; color: var(--text-muted); font-family: 'Plus Jakarta Sans', monospace; font-size: 12px; cursor: pointer;">Clear</button>
       </div>
     </div>
   </div>
 
-  
+  <!-- LucidTunes -->
+  <div class="window" id="lucidtunes" style="top: 100px; left: 260px; display: none;">
+    <div class="windowheader" id="lucidtunesheader">
+      <div class="closebutton" id="lucidtunesclose"></div>
+      <p class="headertext">🎵 LucidTunes</p>
+    </div>
+    <div class="window-content" style="text-align: center;">
+      <div id="tunesAlbumArt" style="width: 120px; height: 120px; border-radius: 4px; background: var(--btn-bg); margin: 0 auto 16px auto; display: flex; align-items: center; justify-content: center; font-size: 52px; box-shadow: 0 8px 24px var(--accent-glow);">🎵</div>
+      <div style="font-size: 16px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">Never Gonna Give You Up</div>
+      <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Rick Astley · 1987</div>
+      <audio id="tunesAudio" loop>
+        <source src="./nevergonna.mp3" type="audio/mp3" />
+      </audio>
+      <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 18px;">
+        <button class="sw-btn" onclick="tunesPlay()">▶ Play</button>
+        <button class="sw-btn" onclick="tunesPause()">⏸ Pause</button>
+        <button class="sw-btn" onclick="tunesStop()">⏹ Stop</button>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; justify-content: center;">
+        <span style="font-size: 13px; color: var(--text-muted);">🔈</span>
+        <input type="range" id="tunesVolumeSlider" min="0" max="1" step="0.01" value="0.7" oninput="document.getElementById('tunesAudio').volume=this.value" style="width: 130px; accent-color: var(--accent);" />
+        <span style="font-size: 13px; color: var(--text-muted);">🔊</span>
+      </div>
+      <div id="tunesStatus" style="font-size: 11px; color: var(--text-muted); margin-top: 12px;">Press play 🎶</div>
+    </div>
+  </div>
+
+  <!-- Joke -->
   <div class="window" id="joke" style="top: 100px; left: 200px; display: none;">
     <div class="windowheader" id="jokeheader">
       <div class="closebutton" id="jokeclose"></div>
@@ -311,43 +245,23 @@
     <div class="window-content" style="text-align: center; width: 360px;">
       <div id="jokeSetup" style="font-size: 15px; font-weight: 600; color: var(--text-dark); margin-bottom: 10px; min-height: 40px;"></div>
       <div id="jokePunchline" style="font-size: 14px; color: var(--text-mid); min-height: 40px; font-style: italic;"></div>
-      <button onclick="fetchJoke()" style="
-        margin-top: 20px; padding: 12px 28px;
-        border-radius: 12px; border: none;
-        background: var(--btn-bg);
-        color: white; font-family: Plus Jakarta Sans, monospace;
-        font-weight: 600; font-size: 14px; cursor: pointer;">
-        😂 Get a Joke
-      </button>
+      <button onclick="fetchJoke()" style="margin-top: 20px; padding: 12px 28px; border-radius: 4px; border: none; background: var(--btn-bg); color: white; font-family: Plus Jakarta Sans, monospace; font-weight: 600; font-size: 14px; cursor: pointer;">😂 Get a Joke</button>
     </div>
   </div>
 
-  
+  <!-- Fact -->
   <div class="window" id="fact" style="top: 120px; left: 260px; display: none;">
     <div class="windowheader" id="factheader">
       <div class="closebutton" id="factclose"></div>
       <p class="headertext">🧠 fact generator</p>
     </div>
     <div class="window-content" style="text-align: center; width: 360px;">
-      <div id="factText" style="
-        font-size: 14px; color: var(--text-dark); line-height: 1.8;
-        background: var(--accent-light); border-radius: 12px;
-        padding: 16px; min-height: 100px;
-        display: flex; align-items: center; justify-content: center;">
-        Press the button to get a random fact!
-      </div>
-      <button onclick="fetchFact()" style="
-        margin-top: 16px; padding: 12px 28px;
-        border-radius: 12px; border: none;
-        background: var(--btn-bg);
-        color: white; font-family: Plus Jakarta Sans, monospace;
-        font-weight: 600; font-size: 14px; cursor: pointer;">
-        🧠 Get a Fact
-      </button>
+      <div id="factText" style="font-size: 14px; color: var(--text-dark); line-height: 1.8; background: var(--accent-light); border-radius: 4px; padding: 16px; min-height: 100px; display: flex; align-items: center; justify-content: center;">Press the button to get a random fact!</div>
+      <button onclick="fetchFact()" style="margin-top: 16px; padding: 12px 28px; border-radius: 4px; border: none; background: var(--btn-bg); color: white; font-family: Plus Jakarta Sans, monospace; font-weight: 600; font-size: 14px; cursor: pointer;">🧠 Get a Fact</button>
     </div>
   </div>
 
-  
+  <!-- Animal -->
   <div class="window" id="animal" style="top: 100px; left: 300px; display: none;">
     <div class="windowheader" id="animalheader">
       <div class="closebutton" id="animalclose"></div>
@@ -358,18 +272,11 @@
         <div style="font-size: 60px;">🐾</div>
         <p style="color: var(--text-mid); font-size: 13px; margin: 0;">Click below to see a random animal!</p>
       </div>
-      <button onclick="fetchAnimal()" style="
-        margin-top: 10px; padding: 12px 28px;
-        border-radius: 12px; border: none;
-        background: var(--btn-bg);
-        color: white; font-family: Plus Jakarta Sans, monospace;
-        font-weight: 600; font-size: 14px; cursor: pointer;">
-        🐾 Random Animal
-      </button>
+      <button onclick="fetchAnimal()" style="margin-top: 10px; padding: 12px 28px; border-radius: 4px; border: none; background: var(--btn-bg); color: white; font-family: Plus Jakarta Sans, monospace; font-weight: 600; font-size: 14px; cursor: pointer;">🐾 Random Animal</button>
     </div>
   </div>
 
-  
+  <!-- Word -->
   <div class="window" id="word" style="top: 110px; left: 240px; display: none;">
     <div class="windowheader" id="wordheader">
       <div class="closebutton" id="wordclose"></div>
@@ -380,17 +287,13 @@
         <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 6px;" id="wordDate"></div>
         <div id="wordTitle" style="font-size: 32px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">—</div>
         <div id="wordType" style="font-size: 12px; color: var(--text-muted); font-style: italic; margin-bottom: 14px;"></div>
-        <div id="wordDef" style="
-          font-size: 13px; color: var(--text-dark); line-height: 1.8;
-          background: var(--accent-light); border-radius: 12px;
-          padding: 14px; margin-bottom: 12px;">Loading your word...</div>
+        <div id="wordDef" style="font-size: 13px; color: var(--text-dark); line-height: 1.8; background: var(--accent-light); border-radius: 4px; padding: 14px; margin-bottom: 12px;">Loading your word...</div>
         <div id="wordExample" style="font-size: 12px; color: var(--text-muted); font-style: italic;"></div>
       </div>
     </div>
   </div>
 
   <script>
-    // Live clock
     function updateTime() {
       var currentTime = new Date().toLocaleString();
       document.querySelector("#timeElement").innerHTML = currentTime;
@@ -399,26 +302,26 @@
     setInterval(updateTime, 1000);
   </script>
 
-  
+  <!-- Dock -->
   <div id="dock">
-    <div class="dock-item" onclick="openWindow(jokeScreen);">
-      <div class="dock-emoji">😂</div>
+    <div class="dock-item" onclick="openWindow(jokeScreen); trackApp('Jokes');">
+      <img src="./Joke.png" class="dock-img" id="dock-joke" />
       <span class="dock-label">Jokes</span>
     </div>
-    <div class="dock-item" onclick="openWindow(factScreen);">
-      <div class="dock-emoji">🧠</div>
+    <div class="dock-item" onclick="openWindow(factScreen); trackApp('Facts');">
+      <img src="./facts.png" class="dock-img" id="dock-facts" />
       <span class="dock-label">Facts</span>
     </div>
-    <div class="dock-item" onclick="openWindow(animalScreen);">
-      <div class="dock-emoji">🐾</div>
+    <div class="dock-item" onclick="openWindow(animalScreen); trackApp('Animals');">
+      <img src="./animals.png" class="dock-img" id="dock-animals" />
       <span class="dock-label">Animals</span>
     </div>
-    <div class="dock-item" onclick="openWindow(wordScreen);">
-      <div class="dock-emoji">📖</div>
+    <div class="dock-item" onclick="openWindow(wordScreen); trackApp('Word of Day');">
+      <img src="./word.png" class="dock-img" id="dock-word" />
       <span class="dock-label">Word of Day</span>
     </div>
     <div class="dock-item" onclick="surpriseMe();">
-      <div class="dock-emoji">🎲</div>
+      <img src="./suprise.png" class="dock-img" id="dock-surprise" />
       <span class="dock-label">Surprise Me!</span>
     </div>
     <div class="dock-item" onclick="openWindow(settingsScreen);">
@@ -427,7 +330,7 @@
     </div>
   </div>
 
-  
+  <!-- About icon -->
   <div class="about-icon" onclick="openWindow(aboutScreen);">
     <div class="about-icon-box">
       <span>🌙</span>
@@ -436,7 +339,28 @@
     <span class="about-icon-label">About</span>
   </div>
 
-  
+  <!-- Activity Widget (C) -->
+  <div id="activityWidget">
+    <div class="widget-title">Session Activity</div>
+    <div class="widget-count">Apps opened: <span id="widgetCount">0</span></div>
+    <div id="widgetBars" style="display:flex;gap:3px;align-items:flex-end;height:40px;margin:8px 0;"></div>
+    <div id="widgetLast" class="widget-last">nothing opened yet</div>
+  </div>
+
+  <!-- Lumi Pet (D) -->
+  <div id="lumiPet">
+    <div id="lumiBubble">
+      <div id="lumiBubbleText">Hey! I'm Lumi 👋<br>Ask me about any app!</div>
+      <div style="display:flex;gap:6px;margin-top:10px;">
+        <input id="lumiInput" type="text" placeholder="ask lumi..." onkeydown="if(event.key==='Enter')lumiReply()" />
+        <button onclick="lumiReply()">→</button>
+      </div>
+    </div>
+    <div id="lumiBody" onclick="toggleLumi()">🌙</div>
+    <span class="lumi-label">Lumi</span>
+  </div>
+
+  <!-- About -->
   <div class="window" id="about" style="top: 80px; left: calc(50% - 220px); display: none;">
     <div class="windowheader" id="aboutheader">
       <div class="closebutton" id="aboutclose"></div>
@@ -444,7 +368,7 @@
     </div>
     <div class="window-content" style="width: 420px;">
       <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
-        <div style="width: 64px; height: 64px; border-radius: 16px; background: var(--btn-bg); display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; gap: 2px;">
+        <div style="width: 64px; height: 64px; border-radius: 4px; background: var(--btn-bg); display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; gap: 2px;">
           <span style="font-size: 24px;">🌙</span>
           <span style="font-size: 8px; font-weight: 700; color: rgba(255,255,255,0.85); font-family: Plus Jakarta Sans, monospace;">lucidOS</span>
         </div>
@@ -453,77 +377,61 @@
           <p style="margin: 0; color: var(--text-muted); font-size: 12px;">Version 1.0.0 · Web Edition</p>
         </div>
       </div>
-      <div style="background: var(--accent-light); border-radius: 12px; padding: 16px; margin-bottom: 14px;">
-        <p style="margin: 0 0 10px 0; color: var(--text-dark); font-size: 13px; line-height: 1.7;">lucidOS is a lightweight, fully web-based desktop operating system that runs entirely in your browser. No installation, no login, no limits — just open it and start exploring.</p>
-        <p style="margin: 0; color: var(--text-mid); font-size: 13px; line-height: 1.7;">Built with pure HTML, CSS, and JavaScript, lucidOS lets you open apps, drag windows, and experience a real desktop environment without ever leaving your browser tab.</p>
+      <div style="background: var(--accent-light); border-radius: 4px; padding: 16px; margin-bottom: 14px;">
+        <p style="margin: 0 0 10px 0; font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">What's inside</p>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div style="font-size: 13px; color: var(--text-dark);">🧮 Calculator &nbsp;·&nbsp; ☁️ Live Weather &nbsp;·&nbsp; ⏱ Stopwatch</div>
+          <div style="font-size: 13px; color: var(--text-dark);">😂 Joke Generator &nbsp;·&nbsp; 🧠 Random Facts &nbsp;·&nbsp; 🐾 Animals</div>
+          <div style="font-size: 13px; color: var(--text-dark);">😀 Emoji Picker &nbsp;·&nbsp; 🎨 Pixel Art &nbsp;·&nbsp; 📝 Notes</div>
+          <div style="font-size: 13px; color: var(--text-dark);">📖 Word of the Day &nbsp;·&nbsp; 🎲 Surprise Me &nbsp;·&nbsp; 🎵 LucidTunes</div>
+          <div style="font-size: 13px; color: var(--text-dark);">🪟 Draggable windows &nbsp;·&nbsp; 🎨 Purple, Blue &amp; Black themes</div>
+        </div>
       </div>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px;">
-        <div style="background: var(--accent-light); border-radius: 10px; padding: 12px;">
+        <div style="background: var(--accent-light); border-radius: 4px; padding: 12px;">
           <p style="margin: 0 0 4px 0; font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Built with</p>
           <p style="margin: 0; font-size: 13px; color: var(--text-dark); font-weight: 600;">HTML · CSS · JS</p>
         </div>
-        <div style="background: var(--accent-light); border-radius: 10px; padding: 12px;">
+        <div style="background: var(--accent-light); border-radius: 4px; padding: 12px;">
           <p style="margin: 0 0 4px 0; font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Apps</p>
-          <p style="margin: 0; font-size: 13px; color: var(--text-dark); font-weight: 600;">14 built-in apps</p>
-        </div>
-        <div style="background: var(--accent-light); border-radius: 10px; padding: 12px;">
-          <p style="margin: 0 0 4px 0; font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Platform</p>
-          <p style="margin: 0; font-size: 13px; color: var(--text-dark); font-weight: 600;">Any browser</p>
-        </div>
-        <div style="background: var(--accent-light); border-radius: 10px; padding: 12px;">
-          <p style="margin: 0 0 4px 0; font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Login required</p>
-          <p style="margin: 0; font-size: 13px; color: var(--text-dark); font-weight: 600;">Nope 🎉</p>
+          <p style="margin: 0; font-size: 13px; color: var(--text-dark); font-weight: 600;">15 built-in apps</p>
         </div>
       </div>
     </div>
   </div>
 
-
+  <!-- Settings -->
   <div class="window" id="settings" style="top: 120px; left: calc(50% - 180px); display: none;">
     <div class="windowheader" id="settingsheader">
       <div class="closebutton" id="settingsclose"></div>
       <p class="headertext">⚙️ settings</p>
     </div>
-    <div class="window-content" style="width: 340px;">
-
+    <div class="window-content" style="width: 360px;">
       <p style="margin: 0 0 16px 0; font-size: 13px; color: var(--text-dark); font-weight: 600;">Appearance</p>
-
-      <div style="background: var(--accent-light); border-radius: 14px; padding: 16px; margin-bottom: 12px;">
+      <div style="background: var(--accent-light); border-radius: 4px; padding: 16px; margin-bottom: 12px;">
         <p style="margin: 0 0 12px 0; font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Theme</p>
         <div style="display: flex; gap: 10px;">
-
-          <div id="purpleThemeCard" onclick="setTheme('purple')" style="
-            flex: 1; border-radius: 12px; padding: 14px;
-            background: var(--btn-bg);
-            cursor: pointer; text-align: center;
-            border: 3px solid rgba(255,255,255,0.6);
-            transition: transform 0.15s, border 0.15s;">
-            <div style="font-size: 24px; margin-bottom: 6px;">🌙</div>
-            <p style="margin: 0; color: #fff; font-size: 12px; font-weight: 600;">Purple</p>
+          <div id="purpleThemeCard" onclick="setTheme('purple')" style="flex:1;border-radius:4px;padding:14px;background:linear-gradient(135deg,rgb(150,100,220),rgb(100,60,180));cursor:pointer;text-align:center;border:3px solid rgba(255,255,255,0.6);transition:transform 0.15s,border 0.15s;">
+            <div style="font-size:24px;margin-bottom:6px;">🌙</div>
+            <p style="margin:0;color:#fff;font-size:12px;font-weight:600;">Purple</p>
           </div>
-
-          <div id="blueThemeCard" onclick="setTheme('blue')" style="
-            flex: 1; border-radius: 12px; padding: 14px;
-            background: linear-gradient(135deg, rgb(60,120,255), rgb(30,70,200));
-            cursor: pointer; text-align: center;
-            border: 3px solid transparent;
-            transition: transform 0.15s, border 0.15s;">
-            <div style="font-size: 24px; margin-bottom: 6px;">🔵</div>
-            <p style="margin: 0; color: #fff; font-size: 12px; font-weight: 600;">Blue</p>
+          <div id="blueThemeCard" onclick="setTheme('blue')" style="flex:1;border-radius:4px;padding:14px;background:linear-gradient(135deg,rgb(60,120,255),rgb(30,70,200));cursor:pointer;text-align:center;border:3px solid transparent;transition:transform 0.15s,border 0.15s;">
+            <div style="font-size:24px;margin-bottom:6px;">🔵</div>
+            <p style="margin:0;color:#fff;font-size:12px;font-weight:600;">Blue</p>
           </div>
-
+          <div id="blackThemeCard" onclick="setTheme('black')" style="flex:1;border-radius:4px;padding:14px;background:linear-gradient(135deg,rgb(30,30,30),rgb(5,5,5));cursor:pointer;text-align:center;border:3px solid transparent;transition:transform 0.15s,border 0.15s;">
+            <div style="font-size:24px;margin-bottom:6px;">🖤</div>
+            <p style="margin:0;color:#fff;font-size:12px;font-weight:600;">Black</p>
+          </div>
         </div>
       </div>
-
-      <div style="background: var(--accent-light); border-radius: 14px; padding: 16px;">
+      <div style="background: var(--accent-light); border-radius: 4px; padding: 16px;">
         <p style="margin: 0 0 6px 0; font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em;">Current Theme</p>
         <p id="currentThemeLabel" style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text-dark);">🌙 Purple</p>
       </div>
-
     </div>
   </div>
 
   <script src="script.js"></script>
-
 </body>
 </html>
