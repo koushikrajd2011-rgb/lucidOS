@@ -44,6 +44,8 @@ lucidOS has three themes:
 - **🌙 Purple** — the default dreamy purple aesthetic
 - **🔵 Blue** — a cool blue dark mode alternative
 - Find it out yourself!
+
+USAGE OF AI - AI used for debugging, for three apps (PixelArt, Music App, Number Game).
 Switch between them any time using the **Settings** app in the dock.
 
 ## 🚀 The Real Demo 
