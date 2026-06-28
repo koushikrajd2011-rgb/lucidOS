@@ -1,4 +1,4 @@
-var biggestIndex = 1;
+var biggestIndex = 10;
 var topBar = document.querySelector("#top");
 
 function openWindow(element) {
@@ -558,6 +558,13 @@ var blackIcons = {
   notes:      "./BlackNotes.png",
   tunes:      "./BlackTunes.png"
 };
+var blackDockIcons = {
+  joke:     "./BlackAppJoke.png",
+  facts:    "./BlackFacts.png",
+  animals:  "./BlackAnimal.png",
+  word:     "./WordBlack.png",
+  surprise: "./BlackSuprise.png"
+};
 var purpleDockIcons = {
   joke: "./Joke.png", facts: "./facts.png", animals: "./animals.png",
   word: "./word.png", surprise: "./suprise.png"
@@ -566,17 +573,13 @@ var blueDockIcons = {
   joke: "./BlueJokes.png", facts: "./BlueFacts.png", animals: "./BlueAnimals.png",
   word: "./BlueWord.png", surprise: "./BlueSuprise.png"
 };
-var blackDockIcons = {
-  joke: "./BlackAppJoke.png", facts: "./BlackFacts.png", animals: "./BlackAnimal.png",
-  word: "./WordBlack.png", surprise: "./BlackSuprise.png"
-};
 
 // ── Cursor trail ──
 var trailCanvas = document.getElementById("trailCanvas");
 var trailCtx = trailCanvas.getContext("2d");
 var trailPoints = [];
 var currentTheme = "purple";
-var trailActive = false;
+var trailActive = true;
 
 function resizeTrailCanvas() {
   trailCanvas.width = window.innerWidth;
