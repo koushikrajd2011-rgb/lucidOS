@@ -1,6 +1,6 @@
 # 🌙 lucidOS
  
-LucidOS is a WebOS i have made and match a Lucid theme. It took me quite a lot of hours on fixing bugs, and the app icons took me an hour to arrange and replace the previous ones. LucidOS has it's own distinctive features, or one of the useful features a webOS would eve need. Now scroll down for more info!
+LucidOS is a WebOS i have made and match a Lucid theme. It took me quite a lot of hours on fixing bugs, and the app icons took me an hour to arrange and replace the previous ones. LucidOS has it's own distinctive features, or one of the useful features a webOS would ever need. Now scroll down for more info!
  
 ---
  
