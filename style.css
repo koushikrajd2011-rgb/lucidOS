@@ -371,8 +371,10 @@
 }
 
 #lumiInput {
-  flex: 1;
-  padding: 6px 10px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 7px 10px;
   border-radius: 0px;
   border: 1px solid var(--accent-border);
   background: var(--accent-light);
@@ -380,13 +382,13 @@
   font-family: 'Plus Jakarta Sans', monospace;
   font-size: 11px;
   outline: none;
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 6px;
 }
 
 #lumiBubble button {
-  padding: 6px 14px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 7px 14px;
   border-radius: 0px;
   border: none;
   background: var(--accent);
@@ -394,7 +396,6 @@
   font-size: 11px;
   cursor: pointer;
   font-family: 'Plus Jakarta Sans', monospace;
-  width: 100%;
 }
 
 #lumiBody {
