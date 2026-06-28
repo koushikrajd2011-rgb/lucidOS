@@ -1,14 +1,6 @@
 # 🌙 lucidOS
  
-A lightweight, fully web-based desktop operating system that runs entirely in your browser. No installation, no login, no password — just open it and start exploring.
- 
----
- 
-## What is lucidOS?
- 
-lucidOS is a personal operating system built with pure HTML, CSS, and JavaScript. It simulates a real desktop environment inside a browser tab — complete with draggable windows, a taskbar, a dock, multiple apps, and a theme switcher.
- 
-It was built as part of a creative frontend engineering project, with the goal of making something that feels like a real OS but runs anywhere a browser does.
+LucidOS is a WebOS i have made and match a Lucid theme. It took me quite a lot of hours on fixing bugs, and the app icons took me an hour to arrange and replace the previous ones. LucidOS has it's own distinctive features, or one of the useful features a webOS would eve need. Now scroll down for more info!
  
 ---
  
@@ -17,8 +9,10 @@ It was built as part of a creative frontend engineering project, with the goal o
 - Draggable, closable windows for every app
 - Bottom dock with hover zoom effect
 - Live clock in the top bar
-- Purple and Blue theme switcher via the Settings app
-- 12+ built-in apps
+- Purple, and Blue and a suprise theme switcher via the Settings app
+- Widget for tracking app usage
+- Lumi Bot is a bot
+- Loads of apps to try out
 ---
  
 ## Apps
@@ -35,7 +29,7 @@ It was built as part of a creative frontend engineering project, with the goal o
 | 😂 Joke Generator | Random jokes from a live API |
 | 🧠 Fact Generator | 20 wild random facts |
 | 🐾 Random Animal | Random animal with a fun fact |
-| 📖 Word of the Day | A beautiful word every day with definition |
+| 📖 Word of the Day | A word every day with definition |
 | 🎲 Surprise Me | Opens a random app |
 | ⚙️ Settings | Switch between Purple and Blue themes |
 | ℹ️ About | Info about lucidOS | 
@@ -45,14 +39,13 @@ And more features u can find by checking out the project.
  
 ## Themes
  
-lucidOS comes with two built-in themes:
+lucidOS has three themes:
  
 - **🌙 Purple** — the default dreamy purple aesthetic
 - **🔵 Blue** — a cool blue dark mode alternative
-- **Find it out yourself!
+- Find it out yourself!
 Switch between them any time using the **Settings** app in the dock.
 
-## 🚀 Live Demo
-Well, now you know what LucidOS is all about-**Try LucidOS here:**
+## 🚀 The Real Demo 
+Well, now you know what LucidOS is all about or wanna discover more-**Try LucidOS here:**
 https://koushikrajd2011-rgb.github.io/lucidOS/
- 
