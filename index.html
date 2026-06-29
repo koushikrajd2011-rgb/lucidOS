@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="style.css" />
@@ -339,12 +339,62 @@
     <span class="about-icon-label">About</span>
   </div>
 
-  <!-- Activity Widget (C) -->
-  <div id="activityWidget">
-    <div class="widget-title">Session Activity</div>
-    <div class="widget-count">Apps opened: <span id="widgetCount">0</span></div>
-    <div id="widgetBars" style="display:flex;gap:3px;align-items:flex-end;height:40px;margin:8px 0;"></div>
-    <div id="widgetLast" class="widget-last">nothing opened yet</div>
+  <!-- Widget Row: Clock + Activity + Quote -->
+  <div id="widgetRow">
+    <!-- Analog Clock -->
+    <div id="clockWidget">
+      <div class="widget-title">Clock</div>
+      <canvas id="analogClock" width="96" height="96"></canvas>
+    </div>
+    <!-- Activity + Quote stacked -->
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <!-- Activity Widget -->
+      <div id="activityWidget">
+        <div class="widget-title">Session Activity</div>
+        <div class="widget-count">Apps opened: <span id="widgetCount">0</span></div>
+        <div id="widgetBars" style="display:flex;gap:3px;align-items:flex-end;height:40px;margin:8px 0;"></div>
+        <div id="widgetLast" class="widget-last">nothing opened yet</div>
+      </div>
+      <!-- Quote of the Day -->
+      <div id="quoteWidget">
+        <div class="widget-title">Quote of the day</div>
+        <div id="quoteText">Loading...</div>
+        <div id="quoteAuthor"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Random Moon -->
+  <div id="randomMoon">🌙</div>
+
+  <!-- Snake Game Window -->
+  <div class="window" id="snakegame" style="top: 100px; left: calc(50% - 180px); display: none;">
+    <div class="windowheader" id="snakegameheader">
+      <div class="closebutton" id="snakegameclose"></div>
+      <p class="headertext">🐍 Snake</p>
+    </div>
+    <div class="window-content" style="text-align:center; min-width:320px; min-height:340px; padding: 8px;">
+      <canvas id="snakeCanvas" width="300" height="300" style="border:2px solid var(--accent-border); border-radius:4px; display:block; margin:0 auto;"></canvas>
+      <div id="snakeScore" style="font-size:13px;color:var(--text-mid);margin-top:8px;">Score: 0</div>
+      <button onclick="startSnake()" class="sw-btn" style="margin-top:8px;">▶ Start / Restart</button>
+      <div style="font-size:10px;color:var(--text-muted);margin-top:6px;">Use arrow keys to move</div>
+    </div>
+  </div>
+
+  <!-- Card Flip Memory Game Window -->
+  <div class="window" id="cardflip" style="top: 80px; left: calc(50% - 220px); display: none;">
+    <div class="windowheader" id="cardflipheader">
+      <div class="closebutton" id="cardflipclose"></div>
+      <p class="headertext">🃏 Memory Match</p>
+    </div>
+    <div class="window-content" style="text-align:center; min-width:360px; min-height:300px; padding:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-size:12px;color:var(--text-mid);">Moves: <span id="cardMoves">0</span></span>
+        <button onclick="initCards()" class="sw-btn" style="padding:6px 12px;font-size:11px;">↺ New Game</button>
+        <span style="font-size:12px;color:var(--text-mid);">Pairs: <span id="cardPairs">0</span>/8</span>
+      </div>
+      <div id="cardGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;"></div>
+    </div>
   </div>
 
   <!-- Lumi Pet (D) -->

@@ -744,3 +744,318 @@ function setTheme(theme) {
     if (el) el.src = dockIcons[key];
   });
 }
+
+// ── Analog Clock Widget ──
+var clockCanvas = document.getElementById("analogClock");
+var clockCtx = clockCanvas.getContext("2d");
+
+function drawClock() {
+  var now = new Date();
+  var w = clockCanvas.width, h = clockCanvas.height;
+  var cx = w / 2, cy = h / 2, r = w / 2 - 6;
+  var style = getComputedStyle(document.body);
+  var faceBg = style.getPropertyValue("--clock-face").trim() || "rgba(177,156,217,0.15)";
+  var handColor = style.getPropertyValue("--clock-hand").trim() || "rgb(150,100,220)";
+  var hand2Color = style.getPropertyValue("--clock-hand2").trim() || "rgb(210,180,255)";
+  var secondColor = style.getPropertyValue("--clock-second").trim() || "rgb(255,100,150)";
+  var borderColor = style.getPropertyValue("--accent-border").trim() || "rgba(177,156,217,0.35)";
+
+  clockCtx.clearRect(0, 0, w, h);
+
+  // Face
+  clockCtx.beginPath();
+  clockCtx.arc(cx, cy, r, 0, Math.PI * 2);
+  clockCtx.fillStyle = faceBg;
+  clockCtx.fill();
+  clockCtx.strokeStyle = borderColor;
+  clockCtx.lineWidth = 1.5;
+  clockCtx.stroke();
+
+  // Hour marks
+  for (var i = 0; i < 12; i++) {
+    var angle = (i / 12) * Math.PI * 2 - Math.PI / 2;
+    var x1 = cx + Math.cos(angle) * (r - 4);
+    var y1 = cy + Math.sin(angle) * (r - 4);
+    var x2 = cx + Math.cos(angle) * (r - 10);
+    var y2 = cy + Math.sin(angle) * (r - 10);
+    clockCtx.beginPath();
+    clockCtx.moveTo(x1, y1);
+    clockCtx.lineTo(x2, y2);
+    clockCtx.strokeStyle = hand2Color;
+    clockCtx.lineWidth = i % 3 === 0 ? 2 : 1;
+    clockCtx.stroke();
+  }
+
+  var sec = now.getSeconds();
+  var min = now.getMinutes() + sec / 60;
+  var hr  = (now.getHours() % 12) + min / 60;
+
+  function drawHand(angleFrac, length, color, width) {
+    var a = angleFrac * Math.PI * 2 - Math.PI / 2;
+    clockCtx.beginPath();
+    clockCtx.moveTo(cx, cy);
+    clockCtx.lineTo(cx + Math.cos(a) * length, cy + Math.sin(a) * length);
+    clockCtx.strokeStyle = color;
+    clockCtx.lineWidth = width;
+    clockCtx.lineCap = "round";
+    clockCtx.stroke();
+  }
+
+  drawHand(hr / 12, r * 0.5, handColor, 3);
+  drawHand(min / 60, r * 0.7, hand2Color, 2);
+  drawHand(sec / 60, r * 0.82, secondColor, 1.5);
+
+  // Center dot
+  clockCtx.beginPath();
+  clockCtx.arc(cx, cy, 3, 0, Math.PI * 2);
+  clockCtx.fillStyle = handColor;
+  clockCtx.fill();
+}
+setInterval(drawClock, 1000);
+drawClock();
+
+// ── Quote of the Day ──
+var quotes = [
+  { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+  { text: "In the middle of every difficulty lies opportunity.", author: "Albert Einstein" },
+  { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+  { text: "Life is what happens when you're busy making other plans.", author: "John Lennon" },
+  { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+  { text: "Strive not to be a success, but rather to be of value.", author: "Albert Einstein" },
+  { text: "You miss 100% of the shots you don't take.", author: "Wayne Gretzky" },
+  { text: "Whether you think you can or you think you can't, you're right.", author: "Henry Ford" },
+  { text: "The best time to plant a tree was 20 years ago. The second best is now.", author: "Chinese Proverb" },
+  { text: "An unexamined life is not worth living.", author: "Socrates" },
+  { text: "Spread love everywhere you go.", author: "Mother Teresa" },
+  { text: "When you reach the end of your rope, tie a knot and hang on.", author: "Franklin D. Roosevelt" },
+  { text: "Always remember that you are absolutely unique.", author: "Margaret Mead" },
+  { text: "Do not go where the path may lead, go instead where there is no path.", author: "Ralph Waldo Emerson" },
+  { text: "You will face many defeats in life, but never let yourself be defeated.", author: "Maya Angelou" },
+  { text: "The greatest glory in living lies not in never falling, but in rising every time we fall.", author: "Nelson Mandela" },
+  { text: "In the end, it's not the years in your life that count. It's the life in your years.", author: "Abraham Lincoln" },
+  { text: "Never let the fear of striking out keep you from playing the game.", author: "Babe Ruth" },
+  { text: "Life is either a daring adventure or nothing at all.", author: "Helen Keller" },
+  { text: "Many of life's failures are people who did not realize how close they were to success when they gave up.", author: "Thomas A. Edison" }
+];
+
+(function loadQuote() {
+  var today = new Date();
+  var q = quotes[today.getDate() % quotes.length];
+  document.getElementById("quoteText").textContent = "\u201C" + q.text + "\u201D";
+  document.getElementById("quoteAuthor").textContent = "\u2014 " + q.author;
+})();
+
+// ── Random Moon ──
+var moonEl = document.getElementById("randomMoon");
+var moonVisible = false;
+
+function spawnMoon() {
+  if (moonVisible) return;
+  // safe zone: avoid top bar (64px), dock (80px from bottom), widgets on sides
+  var safeLeft = 220, safeRight = window.innerWidth - 260;
+  var safeTop = 120, safeBottom = window.innerHeight - 120;
+  var x = safeLeft + Math.random() * (safeRight - safeLeft);
+  var y = safeTop + Math.random() * (safeBottom - safeTop);
+  moonEl.style.left = x + "px";
+  moonEl.style.top = y + "px";
+  moonEl.style.display = "block";
+  moonEl.style.opacity = "0";
+  moonVisible = true;
+  setTimeout(function() { moonEl.style.opacity = "1"; }, 50);
+  // auto-hide after 30s if not clicked
+  setTimeout(function() {
+    if (moonVisible) hideMoon();
+  }, 30000);
+}
+
+function hideMoon() {
+  moonEl.style.opacity = "0";
+  setTimeout(function() {
+    moonEl.style.display = "none";
+    moonVisible = false;
+  }, 400);
+}
+
+moonEl.addEventListener("click", function() {
+  hideMoon();
+  // randomly pick snake or card flip
+  if (Math.random() < 0.5) {
+    openWindow(snakeGameScreen);
+    trackApp("Snake");
+  } else {
+    openWindow(cardFlipScreen);
+    initCards();
+    trackApp("Memory Match");
+  }
+});
+
+// spawn every 5 minutes
+setInterval(spawnMoon, 5 * 60 * 1000);
+// first spawn after 30s so user can settle in
+setTimeout(spawnMoon, 30000);
+
+// ── Snake Game ──
+var snakeGameScreen = document.querySelector("#snakegame");
+var cardFlipScreen  = document.querySelector("#cardflip");
+initializeWindow("snakegame");
+initializeWindow("cardflip");
+
+var snakeCtx = document.getElementById("snakeCanvas").getContext("2d");
+var snakeCellSize = 15;
+var snakeGrid = 300 / snakeCellSize;
+var snake, snakeDir, snakeFood, snakeScore, snakeInterval, snakeRunning;
+
+function startSnake() {
+  if (snakeInterval) clearInterval(snakeInterval);
+  snake = [{ x: 10, y: 10 }];
+  snakeDir = { x: 1, y: 0 };
+  snakeFood = randomFood();
+  snakeScore = 0;
+  snakeRunning = true;
+  document.getElementById("snakeScore").textContent = "Score: 0";
+  snakeInterval = setInterval(snakeTick, 120);
+}
+
+function randomFood() {
+  return {
+    x: Math.floor(Math.random() * snakeGrid),
+    y: Math.floor(Math.random() * snakeGrid)
+  };
+}
+
+function snakeTick() {
+  var head = { x: snake[0].x + snakeDir.x, y: snake[0].y + snakeDir.y };
+  if (head.x < 0 || head.x >= snakeGrid || head.y < 0 || head.y >= snakeGrid) {
+    return snakeGameOver();
+  }
+  for (var i = 0; i < snake.length; i++) {
+    if (snake[i].x === head.x && snake[i].y === head.y) return snakeGameOver();
+  }
+  snake.unshift(head);
+  if (head.x === snakeFood.x && head.y === snakeFood.y) {
+    snakeScore++;
+    document.getElementById("snakeScore").textContent = "Score: " + snakeScore;
+    snakeFood = randomFood();
+  } else {
+    snake.pop();
+  }
+  drawSnake();
+}
+
+function snakeGameOver() {
+  clearInterval(snakeInterval);
+  snakeRunning = false;
+  drawSnake();
+  snakeCtx.fillStyle = "rgba(0,0,0,0.55)";
+  snakeCtx.fillRect(0, 0, 300, 300);
+  snakeCtx.fillStyle = "#fff";
+  snakeCtx.font = "bold 18px Plus Jakarta Sans, monospace";
+  snakeCtx.textAlign = "center";
+  snakeCtx.fillText("Game Over!", 150, 130);
+  snakeCtx.font = "13px Plus Jakarta Sans, monospace";
+  snakeCtx.fillText("Score: " + snakeScore, 150, 158);
+  snakeCtx.fillText("Press Start to play again", 150, 182);
+}
+
+function drawSnake() {
+  var style = getComputedStyle(document.body);
+  var bg = style.getPropertyValue("--display-bg").trim() || "#1a0a2e";
+  var accent = style.getPropertyValue("--accent").trim() || "rgb(177,156,217)";
+  var foodColor = style.getPropertyValue("--clock-second").trim() || "rgb(255,100,150)";
+  snakeCtx.fillStyle = bg;
+  snakeCtx.fillRect(0, 0, 300, 300);
+  // food
+  snakeCtx.fillStyle = foodColor;
+  snakeCtx.fillRect(snakeFood.x * snakeCellSize + 2, snakeFood.y * snakeCellSize + 2, snakeCellSize - 4, snakeCellSize - 4);
+  // snake
+  for (var i = 0; i < snake.length; i++) {
+    snakeCtx.fillStyle = i === 0 ? "#fff" : accent;
+    snakeCtx.fillRect(snake[i].x * snakeCellSize + 1, snake[i].y * snakeCellSize + 1, snakeCellSize - 2, snakeCellSize - 2);
+  }
+}
+
+document.addEventListener("keydown", function(e) {
+  if (!snakeRunning) return;
+  if (e.key === "ArrowUp"    && snakeDir.y !== 1)  snakeDir = { x: 0, y: -1 };
+  if (e.key === "ArrowDown"  && snakeDir.y !== -1) snakeDir = { x: 0, y: 1 };
+  if (e.key === "ArrowLeft"  && snakeDir.x !== 1)  snakeDir = { x: -1, y: 0 };
+  if (e.key === "ArrowRight" && snakeDir.x !== -1) snakeDir = { x: 1, y: 0 };
+});
+
+// ── Card Flip Memory Game ──
+var cardEmojis = ["🍕","🎸","🌈","🦋","🍄","🎯","🔥","⭐"];
+var cardState = [];
+var cardFlipped = [];
+var cardMatched = [];
+var cardMoveCount = 0;
+var cardLocked = false;
+
+function initCards() {
+  var pairs = cardEmojis.concat(cardEmojis);
+  // shuffle
+  for (var i = pairs.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = pairs[i]; pairs[i] = pairs[j]; pairs[j] = tmp;
+  }
+  cardState = pairs;
+  cardFlipped = [];
+  cardMatched = [];
+  cardMoveCount = 0;
+  cardLocked = false;
+  document.getElementById("cardMoves").textContent = "0";
+  document.getElementById("cardPairs").textContent = "0";
+  renderCards();
+}
+
+function renderCards() {
+  var grid = document.getElementById("cardGrid");
+  grid.innerHTML = "";
+  var style = getComputedStyle(document.body);
+  var bg = style.getPropertyValue("--accent-light").trim();
+  var border = style.getPropertyValue("--accent-border").trim();
+  cardState.forEach(function(emoji, idx) {
+    var card = document.createElement("div");
+    var isFlipped = cardFlipped.includes(idx) || cardMatched.includes(idx);
+    card.style.cssText = "width:72px;height:72px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;border:2px solid " + border + ";background:" + bg + ";transition:all 0.2s;user-select:none;";
+    card.textContent = isFlipped ? emoji : "🌙";
+    if (cardMatched.includes(idx)) {
+      card.style.opacity = "0.5";
+      card.style.cursor = "default";
+    }
+    card.addEventListener("click", function() { flipCard(idx); });
+    grid.appendChild(card);
+  });
+}
+
+function flipCard(idx) {
+  if (cardLocked) return;
+  if (cardFlipped.includes(idx)) return;
+  if (cardMatched.includes(idx)) return;
+  cardFlipped.push(idx);
+  renderCards();
+  if (cardFlipped.length === 2) {
+    cardMoveCount++;
+    document.getElementById("cardMoves").textContent = cardMoveCount;
+    cardLocked = true;
+    setTimeout(function() {
+      if (cardState[cardFlipped[0]] === cardState[cardFlipped[1]]) {
+        cardMatched.push(cardFlipped[0], cardFlipped[1]);
+        document.getElementById("cardPairs").textContent = (cardMatched.length / 2);
+        cardFlipped = [];
+        cardLocked = false;
+        renderCards();
+        if (cardMatched.length === cardState.length) {
+          setTimeout(function() {
+            alert("🎉 You won in " + cardMoveCount + " moves!");
+          }, 200);
+        }
+      } else {
+        cardFlipped = [];
+        cardLocked = false;
+        renderCards();
+      }
+    }, 800);
+  }
+}
+
+initCards();
