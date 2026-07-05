@@ -114,7 +114,7 @@ initializeWindow("pixel");
 initializeWindow("lucidnotes");
 initializeWindow("lucidtunes");
 
-// ── Calculator ──
+
 var calcExpression = "";
 function calcInput(val) {
   var display = document.getElementById("calcDisplay");
@@ -136,7 +136,7 @@ function calcInput(val) {
   }
 }
 
-// ── Weather ──
+
 function fetchWeather() {
   var city = document.getElementById("cityInput").value.trim();
   var result = document.getElementById("weatherResult");
@@ -169,7 +169,7 @@ document.getElementById("cityInput").addEventListener("keydown", function(e) {
   if (e.key === "Enter") fetchWeather();
 });
 
-// ── Stopwatch ──
+
 var swInterval = null, swElapsed = 0, swRunning = false;
 function swFormat(ms) {
   var mins = Math.floor(ms / 60000);
@@ -197,7 +197,7 @@ function swReset() {
   document.getElementById("swDisplay").textContent = "00:00.00";
 }
 
-// ── Emoji ──
+
 var emojis = [
   "😀","😁","😂","🤣","😃","😄","😅","😆","😉","😊","😋","😎","😍","😘","🥰","😗",
   "😙","😚","🙂","🤗","🤩","🤔","🤨","😐","😑","😶","🙄","😏","😣","😥","😮","🤐",
@@ -233,7 +233,7 @@ var emojis = [
   });
 })();
 
-// ── Guess ──
+
 var secretNumber = Math.floor(Math.random() * 100) + 1;
 var guessAttempts = 0;
 function makeGuess() {
@@ -265,7 +265,7 @@ document.getElementById("guessInput").addEventListener("keydown", function(e) {
   if (e.key === "Enter") makeGuess();
 });
 
-// ── Pixel Art ──
+
 var currentColor = "#a78bfa";
 var isDrawing = false;
 var GRID_SIZE = 20;
@@ -301,7 +301,7 @@ function clearPixelGrid() {
   document.querySelectorAll("#pixelGrid div").forEach(function(cell) { cell.style.background = "rgba(255,255,255,0.05)"; });
 }
 
-// ── LucidNotes ──
+
 document.getElementById("lucidNotesText").addEventListener("input", function() {
   document.getElementById("lucidNotesCount").textContent = this.value.length + " characters";
 });
@@ -310,7 +310,7 @@ function clearLucidNotes() {
   document.getElementById("lucidNotesCount").textContent = "0 characters";
 }
 
-// ── LucidTunes ──
+
 function tunesPlay() {
   var a = document.getElementById("tunesAudio");
   a.play();
@@ -328,13 +328,13 @@ function tunesStop() {
   document.getElementById("tunesStatus").textContent = "Stopped ⏹";
 }
 
-// ── About & Settings ──
+
 var aboutScreen = document.querySelector("#about");
 initializeWindow("about");
 var settingsScreen = document.querySelector("#settings");
 initializeWindow("settings");
 
-// ── Dock screens ──
+
 var jokeScreen   = document.querySelector("#joke");
 var factScreen   = document.querySelector("#fact");
 var animalScreen = document.querySelector("#animal");
@@ -344,7 +344,7 @@ initializeWindow("fact");
 initializeWindow("animal");
 initializeWindow("word");
 
-// ── Joke ──
+
 function fetchJoke() {
   var setup = document.getElementById("jokeSetup");
   var punchline = document.getElementById("jokePunchline");
@@ -363,7 +363,7 @@ function fetchJoke() {
 }
 fetchJoke();
 
-// ── Facts ──
+
 var facts = [
   "Honey never spoils. Archaeologists have found 3000-year-old honey in Egyptian tombs that was still edible.",
   "A group of flamingos is called a 'flamboyance'.",
@@ -395,7 +395,7 @@ function fetchFact() {
 }
 fetchFact();
 
-// ── Animals ──
+
 var animals = [
   { name: "Cat", emoji: "🐱", fact: "Cats sleep 12–16 hours a day and have a special collarbone that lets them always land on their feet." },
   { name: "Dog", emoji: "🐶", fact: "Dogs have a sense of smell that is 10,000 to 100,000 times more powerful than humans." },
@@ -423,7 +423,7 @@ function fetchAnimal() {
 }
 fetchAnimal();
 
-// ── Word of Day ──
+
 var words = [
   { word: "Ephemeral", type: "adjective", def: "Lasting for a very short time; transitory.", example: "The ephemeral beauty of cherry blossoms makes them all the more precious." },
   { word: "Sonder", type: "noun", def: "The realization that each passerby has a life as vivid and complex as your own.", example: "Walking through the city, she felt a deep sense of sonder." },
@@ -451,7 +451,7 @@ var words = [
   document.getElementById("wordExample").textContent = '"' + w.example + '"';
 })();
 
-// ── Surprise Me ──
+
 var allScreens = [
   calculatorScreen, weatherScreen, stopwatchScreen,
   emojiScreen, guessScreen, pixelScreen,
@@ -462,7 +462,7 @@ function surpriseMe() {
   openWindow(random);
 }
 
-// ── Activity Widget (C) ──
+
 var appOpenCount = 0;
 var appOpenLog = [];
 function trackApp(name) {
@@ -483,7 +483,7 @@ function trackApp(name) {
   });
 }
 
-// ── Lumi Pet (D) ──
+
 var lumiOpen = false;
 var lumiKnowledge = {
   calculator: "Calculator lets you do math — add, subtract, multiply, divide, even percentages!",
@@ -527,7 +527,7 @@ function lumiReply() {
   document.getElementById("lumiInput").value = "";
 }
 
-// ── Icon maps ──
+
 var purpleIcons = {
   calculator: "./calculator.png",
   weather:    "./weather.png",
@@ -574,7 +574,7 @@ var blueDockIcons = {
   word: "./BlueWord.png", surprise: "./BlueSuprise.png"
 };
 
-// ── Cursor trail ──
+
 var trailCanvas = document.getElementById("trailCanvas");
 var trailCtx = trailCanvas.getContext("2d");
 var trailPoints = [];
@@ -600,16 +600,16 @@ function getTrailColor() {
   return "168, 139, 250";
 }
 
-// Black theme: dots pattern on canvas, trail reveals/fades
+
 function drawBlackBackground() {
   trailCtx.fillStyle = "#000";
   trailCtx.fillRect(0, 0, trailCanvas.width, trailCanvas.height);
-  // draw subtle dot grid
+ 
   var spacing = 28;
   var color = getTrailColor();
   for (var x = 0; x < trailCanvas.width; x += spacing) {
     for (var y = 0; y < trailCanvas.height; y += spacing) {
-      // check proximity to any trail point
+     
       var maxGlow = 0;
       for (var i = 0; i < trailPoints.length; i++) {
         var tp = trailPoints[i];
@@ -629,7 +629,7 @@ function drawBlackBackground() {
   }
 }
 
-// Purple/Blue trail: glowing dots following cursor
+
 function drawColorTrail() {
   trailCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
   var color = getTrailColor();
@@ -665,7 +665,7 @@ function animateTrail() {
 }
 animateTrail();
 
-// ── setTheme ──
+
 function setTheme(theme) {
   var body = document.getElementById("osBody");
   var bgVideo = document.getElementById("bgVideo");
@@ -676,7 +676,7 @@ function setTheme(theme) {
   var label      = document.getElementById("currentThemeLabel");
   var canvas     = document.getElementById("trailCanvas");
 
-  // reset all cards
+
   purpleCard.style.borderColor = "transparent";
   blueCard.style.borderColor   = "transparent";
   blackCard.style.borderColor  = "transparent";
@@ -717,7 +717,7 @@ function setTheme(theme) {
     dockIcons = blackDockIcons;
 
   } else {
-    // purple
+
     bgVideoSrc.src = "./lucid.mp4";
     bgVideo.load(); bgVideo.play();
     bgVideo.style.display = "block";
@@ -731,13 +731,13 @@ function setTheme(theme) {
     dockIcons = purpleDockIcons;
   }
 
-  // update desktop icons
+
   Object.keys(desktopIcons).forEach(function(key) {
     var el = document.getElementById("icon-" + key);
     if (el) el.src = desktopIcons[key];
   });
 
-  // update dock icons
+
   var dockMap = { joke: "dock-joke", facts: "dock-facts", animals: "dock-animals", word: "dock-word", surprise: "dock-surprise" };
   Object.keys(dockIcons).forEach(function(key) {
     var el = document.getElementById(dockMap[key]);
@@ -745,7 +745,7 @@ function setTheme(theme) {
   });
 }
 
-// ── Analog Clock Widget ──
+
 var clockCanvas = document.getElementById("analogClock");
 var clockCtx = clockCanvas.getContext("2d");
 
@@ -762,7 +762,7 @@ function drawClock() {
 
   clockCtx.clearRect(0, 0, w, h);
 
-  // Face
+ 
   clockCtx.beginPath();
   clockCtx.arc(cx, cy, r, 0, Math.PI * 2);
   clockCtx.fillStyle = faceBg;
@@ -771,7 +771,7 @@ function drawClock() {
   clockCtx.lineWidth = 1.5;
   clockCtx.stroke();
 
-  // Hour marks
+
   for (var i = 0; i < 12; i++) {
     var angle = (i / 12) * Math.PI * 2 - Math.PI / 2;
     var x1 = cx + Math.cos(angle) * (r - 4);
@@ -805,7 +805,7 @@ function drawClock() {
   drawHand(min / 60, r * 0.7, hand2Color, 2);
   drawHand(sec / 60, r * 0.82, secondColor, 1.5);
 
-  // Center dot
+ 
   clockCtx.beginPath();
   clockCtx.arc(cx, cy, 3, 0, Math.PI * 2);
   clockCtx.fillStyle = handColor;
@@ -814,7 +814,7 @@ function drawClock() {
 setInterval(drawClock, 1000);
 drawClock();
 
-// ── Quote of the Day ──
+
 var quotes = [
   { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
   { text: "In the middle of every difficulty lies opportunity.", author: "Albert Einstein" },
@@ -845,13 +845,13 @@ var quotes = [
   document.getElementById("quoteAuthor").textContent = "\u2014 " + q.author;
 })();
 
-// ── Random Moon ──
+
 var moonEl = document.getElementById("randomMoon");
 var moonVisible = false;
 
 function spawnMoon() {
   if (moonVisible) return;
-  // safe zone: avoid top bar (64px), dock (80px from bottom), widgets on sides
+ 
   var safeLeft = 220, safeRight = window.innerWidth - 260;
   var safeTop = 120, safeBottom = window.innerHeight - 120;
   var x = safeLeft + Math.random() * (safeRight - safeLeft);
@@ -862,7 +862,7 @@ function spawnMoon() {
   moonEl.style.opacity = "0";
   moonVisible = true;
   setTimeout(function() { moonEl.style.opacity = "1"; }, 50);
-  // auto-hide after 30s if not clicked
+ 
   setTimeout(function() {
     if (moonVisible) hideMoon();
   }, 30000);
@@ -878,7 +878,7 @@ function hideMoon() {
 
 moonEl.addEventListener("click", function() {
   hideMoon();
-  // randomly pick snake or card flip
+ 
   if (Math.random() < 0.5) {
     openWindow(snakeGameScreen);
     trackApp("Snake");
@@ -889,12 +889,12 @@ moonEl.addEventListener("click", function() {
   }
 });
 
-// spawn every 5 minutes
+
 setInterval(spawnMoon, 5 * 60 * 1000);
-// first spawn after 30s so user can settle in
+
 setTimeout(spawnMoon, 30000);
 
-// ── Snake Game ──
+
 var snakeGameScreen = document.querySelector("#snakegame");
 var cardFlipScreen  = document.querySelector("#cardflip");
 initializeWindow("snakegame");
@@ -982,7 +982,7 @@ document.addEventListener("keydown", function(e) {
   if (e.key === "ArrowRight" && snakeDir.x !== -1) snakeDir = { x: 1, y: 0 };
 });
 
-// ── Card Flip Memory Game ──
+
 var cardEmojis = ["🍕","🎸","🌈","🦋","🍄","🎯","🔥","⭐"];
 var cardState = [];
 var cardFlipped = [];
@@ -992,7 +992,7 @@ var cardLocked = false;
 
 function initCards() {
   var pairs = cardEmojis.concat(cardEmojis);
-  // shuffle
+ 
   for (var i = pairs.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));
     var tmp = pairs[i]; pairs[i] = pairs[j]; pairs[j] = tmp;
