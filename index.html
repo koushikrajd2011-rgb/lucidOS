@@ -7,7 +7,6 @@
 
 <body id="osBody" style="font-family: 'Plus Jakarta Sans', monospace; height: 100vh; margin: 0; overflow: hidden;">
 
-  <!-- Video Background (hidden on black theme) -->
   <video id="bgVideo" autoplay muted loop playsinline style="
     position: fixed; top: 0; left: 0;
     width: 100%; height: 100%;
@@ -15,7 +14,6 @@
     <source id="bgVideoSrc" src="./lucid.mp4" type="video/mp4" />
   </video>
 
-  <!-- Black theme background canvas with dot reveal trail -->
   <canvas id="trailCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;display:none;"></canvas>
 
   <div id="top" style="
@@ -72,7 +70,6 @@
 
   </div>
 
-  <!-- Welcome -->
   <div class="window" id="welcome" style="top: calc(50% - 90px); left: calc(50% - 180px);">
     <div class="windowheader" id="welcomeheader">
       <div class="closebutton" id="welcomeclose"></div>
@@ -84,7 +81,6 @@
     </div>
   </div>
 
-  <!-- Calculator -->
   <div class="window" id="calculator" style="top: 80px; left: 80px; display: none;">
     <div class="windowheader" id="calculatorheader">
       <div class="closebutton" id="calculatorclose"></div>
@@ -115,7 +111,6 @@
     </div>
   </div>
 
-  <!-- Weather -->
   <div class="window" id="weather" style="top: 80px; left: 340px; display: none;">
     <div class="windowheader" id="weatherheader">
       <div class="closebutton" id="weatherclose"></div>
@@ -130,7 +125,6 @@
     </div>
   </div>
 
-  <!-- Stopwatch -->
   <div class="window" id="stopwatch" style="top: 80px; left: 600px; display: none;">
     <div class="windowheader" id="stopwatchheader">
       <div class="closebutton" id="stopwatchclose"></div>
@@ -146,7 +140,6 @@
     </div>
   </div>
 
-  <!-- Emoji -->
   <div class="window" id="emoji" style="top: 100px; left: 200px; display: none;">
     <div class="windowheader" id="emojiheader">
       <div class="closebutton" id="emojiclose"></div>
@@ -159,7 +152,6 @@
     </div>
   </div>
 
-  <!-- Guess -->
   <div class="window" id="guess" style="top: 120px; left: 420px; display: none;">
     <div class="windowheader" id="guessheader">
       <div class="closebutton" id="guessclose"></div>
@@ -177,7 +169,6 @@
     </div>
   </div>
 
-  <!-- Pixel Art -->
   <div class="window" id="pixel" style="top: 80px; left: 160px; display: none;">
     <div class="windowheader" id="pixelheader">
       <div class="closebutton" id="pixelclose"></div>
@@ -194,7 +185,6 @@
     </div>
   </div>
 
-  <!-- LucidNotes -->
   <div class="window" id="lucidnotes" style="top: 100px; left: 300px; display: none;">
     <div class="windowheader" id="lucidnotesheader">
       <div class="closebutton" id="lucidnotesclose"></div>
@@ -209,7 +199,6 @@
     </div>
   </div>
 
-  <!-- LucidTunes -->
   <div class="window" id="lucidtunes" style="top: 100px; left: 260px; display: none;">
     <div class="windowheader" id="lucidtunesheader">
       <div class="closebutton" id="lucidtunesclose"></div>
@@ -236,7 +225,6 @@
     </div>
   </div>
 
-  <!-- Joke -->
   <div class="window" id="joke" style="top: 100px; left: 200px; display: none;">
     <div class="windowheader" id="jokeheader">
       <div class="closebutton" id="jokeclose"></div>
@@ -249,7 +237,6 @@
     </div>
   </div>
 
-  <!-- Fact -->
   <div class="window" id="fact" style="top: 120px; left: 260px; display: none;">
     <div class="windowheader" id="factheader">
       <div class="closebutton" id="factclose"></div>
@@ -261,7 +248,6 @@
     </div>
   </div>
 
-  <!-- Animal -->
   <div class="window" id="animal" style="top: 100px; left: 300px; display: none;">
     <div class="windowheader" id="animalheader">
       <div class="closebutton" id="animalclose"></div>
@@ -276,7 +262,6 @@
     </div>
   </div>
 
-  <!-- Word -->
   <div class="window" id="word" style="top: 110px; left: 240px; display: none;">
     <div class="windowheader" id="wordheader">
       <div class="closebutton" id="wordclose"></div>
@@ -302,7 +287,6 @@
     setInterval(updateTime, 1000);
   </script>
 
-  <!-- Dock -->
   <div id="dock">
     <div class="dock-item" onclick="openWindow(jokeScreen); trackApp('Jokes');">
       <img src="./Joke.png" class="dock-img" id="dock-joke" />
@@ -330,7 +314,6 @@
     </div>
   </div>
 
-  <!-- About icon -->
   <div class="about-icon" onclick="openWindow(aboutScreen);">
     <div class="about-icon-box">
       <span>🌙</span>
@@ -338,24 +321,23 @@
     </div>
     <span class="about-icon-label">About</span>
   </div>
-
-  <!-- Widget Row: Clock + Activity + Quote -->
+ 
   <div id="widgetRow">
-    <!-- Analog Clock -->
+
     <div id="clockWidget">
       <div class="widget-title">Clock</div>
       <canvas id="analogClock" width="96" height="96"></canvas>
     </div>
-    <!-- Activity + Quote stacked -->
+
     <div style="display:flex;flex-direction:column;gap:10px;">
-      <!-- Activity Widget -->
+
       <div id="activityWidget">
         <div class="widget-title">Session Activity</div>
         <div class="widget-count">Apps opened: <span id="widgetCount">0</span></div>
         <div id="widgetBars" style="display:flex;gap:3px;align-items:flex-end;height:40px;margin:8px 0;"></div>
         <div id="widgetLast" class="widget-last">nothing opened yet</div>
       </div>
-      <!-- Quote of the Day -->
+
       <div id="quoteWidget">
         <div class="widget-title">Quote of the day</div>
         <div id="quoteText">Loading...</div>
@@ -364,10 +346,9 @@
     </div>
   </div>
 
-  <!-- Random Moon -->
+
   <div id="randomMoon">🌙</div>
 
-  <!-- Snake Game Window -->
   <div class="window" id="snakegame" style="top: 100px; left: calc(50% - 180px); display: none;">
     <div class="windowheader" id="snakegameheader">
       <div class="closebutton" id="snakegameclose"></div>
@@ -381,7 +362,6 @@
     </div>
   </div>
 
-  <!-- Card Flip Memory Game Window -->
   <div class="window" id="cardflip" style="top: 80px; left: calc(50% - 220px); display: none;">
     <div class="windowheader" id="cardflipheader">
       <div class="closebutton" id="cardflipclose"></div>
@@ -397,7 +377,6 @@
     </div>
   </div>
 
-  <!-- Lumi Pet (D) -->
   <div id="lumiPet">
     <div id="lumiBubble">
       <div id="lumiBubbleText">Hey! I'm Lumi 👋<br>Ask me about any app!</div>
@@ -408,7 +387,6 @@
     <span class="lumi-label">Lumi</span>
   </div>
 
-  <!-- About -->
   <div class="window" id="about" style="top: 80px; left: calc(50% - 220px); display: none;">
     <div class="windowheader" id="aboutheader">
       <div class="closebutton" id="aboutclose"></div>
@@ -448,7 +426,6 @@
     </div>
   </div>
 
-  <!-- Settings -->
   <div class="window" id="settings" style="top: 120px; left: calc(50% - 180px); display: none;">
     <div class="windowheader" id="settingsheader">
       <div class="closebutton" id="settingsclose"></div>
